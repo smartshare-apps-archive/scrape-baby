@@ -10,11 +10,32 @@ request_endpoints = Blueprint('request_endpoints', __name__, template_folder='te
 @request_endpoints.route('/init_scrape', methods=["POST"])
 def scrape():
 	scrape_params = request.form['scrape_params']
-	scrape_params = json.loads(scrape_params)
+	scrape_params = json.loads(scrape_params)["params"]
 
-	init_scrape(scrape_params["params"])
+	session, result, next_action = init_scrape(scrape_params)
+	
+
+	while(next_action):
+		current_params = scrape_params.get(next_action, None)
+
+		if current_params:
+			action_type = current_params.get('type', None)
+
+			if action_type:
+				if action_type == "parse":
+					print "Performing parse action..."
+					result = parse_action(current_params, session)
+				elif action_type == "raw":
+					print "Performing request action..."
+					result = get_action(current_params, session)
+
+			print "Current action params: ", current_params
+		
+		next_action = current_params.get("next_action", None)
 
 	return json.dumps(scrape_params)
+
+
 
 
 def init_scrape(scrape_params):
@@ -23,7 +44,7 @@ def init_scrape(scrape_params):
 
 	if init_params:
 		s = None
-		
+
 		#if these scrapes require authentication, set up an authenticated session object 
 		if(init_params["requires_session"]):
 			s = create_session(init_params["session_params"])
@@ -32,17 +53,22 @@ def init_scrape(scrape_params):
 
 		if s:
 			raw_data = get_action(init_params, s = s)
+			next_action = init_params["next_action"]
+			return (s, raw_data, next_action)
+
 
 
 def get_action(step_params, s = None):
 	if s:
 		r = s.get(step_params["url"])
 		response_text = r.text.encode('utf-8')
-		
+		return response_text
+	else:
+		return False
 
 
 
-def parse_action(parse_params):
+def parse_action(parse_params, s = None):
 	pass
 
 
@@ -67,30 +93,37 @@ def create_session(session_params):
 
 		}
 
-		#encoded_payload = urllib.urlencode(login_payload)
-		print login_payload
+	else:
+		login_payload = {
+			session_params["username"][0]: session_params["username"][1],
+			session_params["password"][0]: session_params["password"][1],
+		}
 
-		login_url = session_params["login_url"]
-		login_method = session_params["login_method"]
+	#encoded_payload = urllib.urlencode(login_payload)
+	print login_payload
+
+	login_url = session_params["login_url"]
+	login_method = session_params["login_method"]
+	
+
+	if login_method == "post":
+		r = s.post(login_url, data = login_payload)
+		if r.status_code == 200:
+			return s
+			
+		else:
+			print r.status_code
+			return None
 		
 
-		if login_method == "post":
-			r = s.post(login_url, data = login_payload)
-			if r.status_code == 200:
-				return s
-				
-			else:
-				print r.status_code
-				return None
-			
+	elif login_method == "get":
+		r = s.get(login_url, data = login_payload)
+		
+		if r.status_code == 200:
+			return s
+		else:
+			return None
 
-		elif login_method == "get":
-			r = s.get(login_url, data = login_payload)
-			
-			if r.status_code == 200:
-				return s
-			else:
-				return None
 
 	return None
 

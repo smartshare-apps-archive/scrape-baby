@@ -17,6 +17,14 @@ var test_params = {
 				},
 				
    			},
+
+   		"get_product_links":{
+				type: "parse",
+				regex: String.raw`\"boldLink\sproductLink\"\shref=\"([^\"]+)\"\>([^\<]+)\</a\>'`,
+				output_format: "dict",
+				key_indices: "product_id",
+				
+	   	}
 };
 
 
