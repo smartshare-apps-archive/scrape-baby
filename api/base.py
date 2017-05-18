@@ -20,19 +20,24 @@ def scrape():
 def init_scrape(scrape_params):
 
 	init_params = scrape_params.get('init', None)
+
 	if init_params:
 		s = None
-
+		
+		#if these scrapes require authentication, set up an authenticated session object 
 		if(init_params["requires_session"]):
 			s = create_session(init_params["session_params"])
+		else:
+			s = requests.Session()
 
-		raw_data = get_action(init_params, s = s)
+		if s:
+			raw_data = get_action(init_params, s = s)
 
 
 def get_action(step_params, s = None):
 	if s:
-		raw_data = s.get(step_params["url"])
-		print raw_data.text
+		r = s.get(step_params["url"])
+		response_text = r.text.encode('utf-8')
 		
 
 
@@ -49,7 +54,7 @@ def create_session(session_params):
 		token_url = session_params["token_url"]
 		token_re = re.compile(session_params['token_re'])
 
-		r = requests.get(token_url)
+		r = s.get(token_url)
 		token_matches = re.search(token_re, r.text)
 
 		if token_matches:
@@ -59,19 +64,35 @@ def create_session(session_params):
 			session_params["username"][0]: session_params["username"][1],
 			session_params["password"][0]: session_params["password"][1],
 			session_params["token_name"]: token
+
 		}
 
+		#encoded_payload = urllib.urlencode(login_payload)
 		print login_payload
 
 		login_url = session_params["login_url"]
 		login_method = session_params["login_method"]
-
 		
 
 		if login_method == "post":
-			s.post(login_url, data = login_payload)
+			r = s.post(login_url, data = login_payload)
+			if r.status_code == 200:
+				return s
+				
+			else:
+				print r.status_code
+				return None
+			
 
-	return s
+		elif login_method == "get":
+			r = s.get(login_url, data = login_payload)
+			
+			if r.status_code == 200:
+				return s
+			else:
+				return None
+
+	return None
 
 
 

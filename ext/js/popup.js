@@ -6,7 +6,7 @@ var test_params = {
 				next_action: "get_product_links",
 				requires_session: true,
 				session_params: {
-					"login_url":"https://www.darice.com/account/logon?returnUrl=%2Fhome%2Findex",
+					"login_url":"https://www.darice.com/account/logon",
 					"login_method":"post",
 					"username": ["EmailAddress","info@bhens.com"],
 					"password": ["AccountPassword","sandaga1"],
