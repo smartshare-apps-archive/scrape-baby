@@ -1,0 +1,26 @@
+html{
+	width:500px;
+	height:500px;
+
+
+}
+
+body{
+	margin-top:10px;
+	width:500px;
+	height:500px;
+}
+
+h3{
+	font-family:"Open Sans", sans-serif;
+}
+
+h4{
+	font-family:"Open Sans", sans-serif;
+}
+
+#tab_body{
+	padding-top:10px;
+	padding-left:20px;
+	padding-right:20px;
+}

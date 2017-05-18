@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+
+  "name": "Scrape Baby",
+  "description": "An easy way to import products, just like Oberlo, but not quite as good.",
+  "version": "1.0",
+
+  "browser_action": {
+    //"default_icon": "icon.png",
+    "default_popup": "popup.html"
+	// "default_title":"Empty extension"
+  	},
+	
+	"permissions":[
+		"http://*/*",
+		"storage"	
+	],
+	
+	//background script 
+	"background":{
+
+		"scripts":["js/jquery.js", "background_script.js"],
+		"persistent": false
+	},
+
+	"content_scripts":[
+	{
+	"matches":["http://*/*", "https://*/*"],
+	"js":["content_script.js"]	
+	}
+		
+	]
+	
+}

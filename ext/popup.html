@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/popup.css">
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"> </script>
+	<script src="js/fa.js"></script>
+	<script src="js/popup.js"></script>
+	  
+    <title>Scrape baby</title>
+
+  </head>
+  <body>  	
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+		
+		<!-- begin tab menu -->
+			<ul class="nav nav-tabs">
+			  <li class="active"><a data-toggle="tab" href="#tab_scrape">Scrape &nbsp; <span class="glyphicon glyphicon-screenshot"> </span> </a></li>
+			  
+			  <li><a data-toggle="tab" href="#tab_results">Results &nbsp; <span class="glyphicon glyphicon-list-alt"></span> </a></li>
+			  <li><a data-toggle="tab" href="#tab_configure">Configure &nbsp; <span class="glyphicon glyphicon-cog"> </span> </a></li>
+			  <li><a data-toggle="tab" href="#tab_advanced">Advanced &nbsp; <span class="glyphicon glyphicon-cog"> </span> </a></li>
+			</ul>
+		<!-- end tab menu -->
+
+		<!-- begin tab content section -->
+			<div class="tab-content" id="tab_body">
+			  <div id="tab_scrape" class="tab-pane fade in active">
+			    <h4><span class="glyphicon glyphicon-search"> </span> &nbsp; Scrape a website for products</h4><hr>
+			    
+			    <!-- begin scrapeable site inputs -->
+			    <div class="input-group">
+				    <span class="input-group-addon">
+				    	Website to scrape
+				    </span>
+				    <select class="form-control" id="input_siteToScrape">
+				    	<option value="site_id"> Darice.com </option>
+				    	<option value="site_id"> Starovski.com </option>
+				    </select>
+			  	</div>
+			  	<!-- end scrapeable site inputs -->
+
+
+			  <hr>
+			  	<h4>Select desired fields:</h4>
+			  	<div class="row">
+			  		<div class="col-xs-6">
+
+				  		<div class="checkbox">
+						  <label><input type="checkbox" value="">Price</label>
+						</div>
+						<div class="checkbox">
+						  <label><input type="checkbox" value="">MSRP</label>
+						</div>
+						<div class="checkbox">
+						  <label><input type="checkbox" value="">UPC</label>
+						</div>
+
+			  		</div>
+			  		
+			  		<div class="col-xs-6">
+			  			<div class="checkbox">
+						  <label><input type="checkbox" value="">Image Src</label>
+						</div>
+						<div class="checkbox">
+						  <label><input type="checkbox" value="">SKU</label>
+						</div>
+						<div class="checkbox">
+						  <label><input type="checkbox" value="">Etc.</label>
+						</div>
+			  		</div>
+			  	
+			  	</div>
+			  	<hr>
+			  			<!-- begin scrapeable site inputs -->
+					    <div class="input-group">
+						    <span class="input-group-addon">
+						    	Output format
+						    </span>
+						    <select class="form-control" id="input_outputFormat">
+						    	<option value="site_id"> Filemaker </option>
+						    	<option value="site_id"> Shopify </option>
+						    </select>
+					  	</div>
+					  	<!-- end scrapeable site inputs -->
+				<br />
+			  	<div class="text-center">
+			  		<button type="button" class="btn btn-primary btn-lg"> Scrape baby! </button> 
+			  	</div>
+
+			  </div>
+
+			  <div id="tab_results" class="tab-pane fade">
+			    <h4>Results from <a href="#"> https://darice.com/page/14 </a> </h4> <hr>
+			  </div>
+			  <div id="tab_configure" class="tab-pane fade">
+			    <h4><span class="glyphicon glyphicon-pencil"></span> &nbsp; Configure target sites </h4> <hr>
+
+			    <!-- begin scrapeable site inputs -->
+			    <div class="input-group">
+				    <span class="input-group-addon">
+				    	Website to scrape
+				    </span>
+				    <select class="form-control" id="input_siteToScrape">
+				    	<option value="site_id"> Darice.com </option>
+				    	<option value="site_id"> Starovski.com </option>
+				    </select>
+			  	</div>
+			  	<!-- end scrapeable site inputs -->
+			  	<br>
+			  	<!-- begin test url input group -->
+			    <div class="input-group">
+				    <span class="input-group-addon">
+				    	Test URL
+				    </span>
+				  	<input type="text" class="form-control">
+			  	</div>
+			  	<br />
+			  	<!-- end test url input group -->
+				  	<div class="text-center">
+				  		<button type="button" class="btn btn-primary btn-lg"> Gather fields </button>
+				  	</div>
+			  	<hr>
+			    <div class="row">
+			  		<div class="col-xs-6">
+				  		<div class="checkbox">
+						  <label><input type="checkbox" value="">Price</label>
+						</div>
+
+			  		</div>
+			  		<div class="col-xs-6">
+			  			<div class="checkbox">
+						  <label><input type="checkbox" value="">Image Src</label>
+						</div>
+			  		</div>
+			  	</div>
+			  	<hr>
+			  	<div class="text-center">
+			  		<button type="button" class="btn btn-success btn-lg"> Save changes </button>
+			  	</div>
+			  </div>
+
+			  <div id="tab_advanced" class="tab-pane fade">
+			  advanced
+			  </div>
+			</div>
+		<!-- end tab content section -->
+
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>	
