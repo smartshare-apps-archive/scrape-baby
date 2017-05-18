@@ -22,6 +22,7 @@ var test_params = {
 				type: "parse",
 				regex: String.raw`\"boldLink\sproductLink\"\shref=\"([^\"]+)\"\>([^\<]+)\</a\>'`,
 				output_format: "dict",
+				iterate: true,
 				key_indices: "product_id",
 				
 	   	}

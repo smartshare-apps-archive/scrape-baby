@@ -100,7 +100,6 @@ def create_session(session_params):
 		}
 
 	#encoded_payload = urllib.urlencode(login_payload)
-	print login_payload
 
 	login_url = session_params["login_url"]
 	login_method = session_params["login_method"]
