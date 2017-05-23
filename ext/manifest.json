@@ -13,7 +13,8 @@
 	
 	"permissions":[
 		"http://*/*",
-		"storage"	
+		"storage",
+		"tabs"	
 	],
 	
 	//background script 

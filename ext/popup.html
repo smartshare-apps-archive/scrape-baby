@@ -41,10 +41,7 @@
 				    <span class="input-group-addon">
 				    	Website to scrape
 				    </span>
-				    <select class="form-control" id="input_siteToScrape">
-				    	<option value="site_id"> Darice.com </option>
-				    	<option value="site_id"> Starovski.com </option>
-				    </select>
+				    <input type="text" class="form-control" id="input_siteToScrape" readonly>
 			  	</div>
 			  	<!-- end scrapeable site inputs -->
 
@@ -93,7 +90,7 @@
 					  	<!-- end scrapeable site inputs -->
 				<br />
 			  	<div class="text-center">
-			  		<button type="button" class="btn btn-primary btn-lg"> Scrape baby! </button> 
+			  		<button type="button" class="btn btn-primary btn-lg" id="btn_startScrape"> Scrape baby! </button> 
 			  	</div>
 
 			  </div>
@@ -107,11 +104,11 @@
 			    <!-- begin scrapeable site inputs -->
 			    <div class="input-group">
 				    <span class="input-group-addon">
-				    	Website to scrape
+				    	Test scrape parameters:
 				    </span>
 				    <select class="form-control" id="input_siteToScrape">
-				    	<option value="site_id"> Darice.com </option>
-				    	<option value="site_id"> Starovski.com </option>
+				    	<option value="darice"> Darice.com </option>
+				    	<option value="starovski"> Starovski.com </option>
 				    </select>
 			  	</div>
 			  	<!-- end scrapeable site inputs -->
@@ -121,7 +118,7 @@
 				    <span class="input-group-addon">
 				    	Test URL
 				    </span>
-				  	<input type="text" class="form-control">
+				  	<input type="text" class="form-control" id="input_testURL">
 			  	</div>
 			  	<br />
 			  	<!-- end test url input group -->
@@ -149,7 +146,21 @@
 			  </div>
 
 			  <div id="tab_advanced" class="tab-pane fade">
-			  advanced
+			   <div class="input-group">
+				    <span class="input-group-addon">
+				    	Base site:
+				    </span>
+				    <select class="form-control" id="select_siteToConfigure">
+				    	<option value="darice"> Darice.com </option>
+				    	<option value="starovski"> Starovski.com </option>
+				    </select>
+			  	</div>
+			  	<hr>
+			  	<textarea class="form-control" id="input_siteParameters"></textarea>
+			  	<hr>
+
+			  	<button type="button" class="btn btn-primary btn-lg" id="btn_setParameters"> Save parameters </button>
+
 			  </div>
 			</div>
 		<!-- end tab content section -->
