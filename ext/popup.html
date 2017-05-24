@@ -134,7 +134,23 @@
 				    </select>
 			  	</div>
 			  	<hr>
-			  	<textarea class="form-control" id="input_siteParameters"></textarea>
+			  	<div id="scrape_params_cont">
+			  		<div class="input-group">
+			  			<span class="input-group-addon">
+			  				Step
+			  			</span>
+			  			<input type="text" class="form-control" value="Init" readonly>
+
+			  			<span class="input-group-addon">
+			  				Type
+			  			</span>
+			  			<input type="text" class="form-control" value="GET" readonly>
+
+			  			<span class="input-group-btn">
+			  				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_initParams" id="btn_editInitParams"> Edit </button>
+			  			</span>
+			  		</div>
+			  	</div>
 			  	<hr>
 
 			  	<button type="button" class="btn btn-primary btn-lg" id="btn_setParameters"> Save parameters </button>
@@ -147,6 +163,135 @@
 	</div>
 
 </div>
+
+
+<!-- init modal -->
+<div id="modal_initParams" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Init Parameters</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="input-group">
+        	<span class="input-group-addon"> Method </span>
+        	<select class="form-control init-param" data-fieldID="method">
+        		<option value="GET"> GET </option>
+        		<option value="POST"> POST </option>
+        	</select>
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> URL </span>
+        	<input type="text" class="form-control init-param" data-fieldID="url" placeholder="Enter URL">
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Requires session? </span>
+        	<select class="form-control init-param" data-fieldID="requires-session">
+        		<option value="true"> Yes </option>
+        		<option value="false"> No </option>
+        	</select>
+        </div>
+        <hr>
+        <h4> Session parameters </h4>
+
+        <div class="input-group">
+        	<span class="input-group-addon"> Login URL </span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-url" placeholder="Enter URL">
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Method </span>
+        	
+        	<select class="form-control init-param" data-fieldID="session-login-method">
+        		<option value="GET"> GET </option>
+        		<option value="POST"> POST </option>
+        	</select>
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Username </span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-username">
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Password </span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-password">
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Requires Token </span>
+        	<select class="form-control init-param" data-fieldID="session-login-requires-token" >
+        		<option value="true"> Yes </option>
+        		<option value="false"> No </option>
+        	</select>
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Token url </span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-token-url" >
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Token regex </span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-token-regex" >
+        </div>
+        <br>
+        <div class="input-group">
+        	<span class="input-group-addon"> Token name </span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-token-name">
+        </div>
+
+
+      <!-- end modal body -->
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_saveInitParams">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- end init modal -->
+
+<!-- parse modal -->
+<div id="modal_parseModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Init Parameters</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="input-group">
+        	<span class="input-group-addon"> Method </span>
+        	<select class="form-control">
+        		<option value="GET"> GET </option>
+        		<option value="POST"> POST </option>
+        	</select>
+        </div>
+
+        
+
+
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- end parse modal -->
+
 
 </body>
 </html>	

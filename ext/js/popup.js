@@ -3,8 +3,9 @@ var select_siteToConfigure;
 var btn_setParameters;
 var btn_startScrape;
 var btn_gatherFields;
+var btn_saveInitParams;
+var btn_editInitParams;
 
-var input_siteParameters;
 var input_siteToScrape;
 var input_siteToTest;
 
@@ -25,24 +26,31 @@ $(document).ready(function(){
   chrome.tabs.getSelected(null, function(tab) {
   		bindElements();
 		bindEvents();
-		loadParameters();
 
         currentURL = tab.url;
 
         populateTargetFields();
     });
-	
+
+	/*
+	chrome.storage.local.clear(function() {
+	    var error = chrome.runtime.lastError;
+	    if (error) {
+	        console.error(error);
+	    }
+	});
+	*/
 });
 
 
 function bindElements(){
-	btn_setParameters = $("#btn_setParameters");
 	btn_startScrape = $("#btn_startScrape");
 	btn_gatherFields = $("#btn_gatherFields");
+	btn_saveInitParams = $("#btn_saveInitParams");
+	btn_editInitParams = $("#btn_editInitParams");
 
 	select_siteToConfigure = $("#select_siteToConfigure");
 
-	input_siteParameters = $("#input_siteParameters");
 	input_siteToScrape = $("#input_siteToScrape");
 	input_testURL = $("#input_testURL");
 	input_siteToTest = $("#input_siteToTest");
@@ -50,11 +58,13 @@ function bindElements(){
 
 
 function bindEvents(){
-	btn_setParameters.click(setParameters);
+
 	btn_startScrape.click(initScrape);
 	btn_gatherFields.click(gatherFields);
+	btn_saveInitParams.click(saveInitParams);
+	btn_editInitParams.click(loadInitParams);
 
-	select_siteToConfigure.change(loadParameters);
+	//select_siteToConfigure.change(loadParameters);
 }
 
 
@@ -70,12 +80,9 @@ function gatherFields(){
 	var testURL = input_testURL.val();
 	var currentParams = input_siteToTest.val();
 	
-	chrome.storage.sync.get(currentParams, function (obj) {
+	chrome.storage.local.get(currentParams, function (obj) {
 		var paramString = obj[currentParams];
-	 	paramString = paramString.replace('param_url', "\"" + testURL + "\"");
-	 	console.log(paramString);
-	 	var paramObj = JSON.parse("{" + paramString + "}");
-	 	console.log(paramObj); 
+
 	});
 }
 
@@ -89,41 +96,87 @@ function populateTargetFields(){
 }
 
 
+// save initialization parameters to local chrome storage
+function saveInitParams(){
+	var currentSite = select_siteToConfigure.val();
 
-function setParameters(){
-   var currentSite = select_siteToConfigure.val();
-   var currentParams = input_siteParameters.val();
+	// get the saved parameters, so overwriting the values won't erase other steps in the parse list
+	chrome.storage.local.get(currentSite, function(params) {
 
-   var json_obj = {};
-   json_obj[currentSite] = currentParams;
+		// if we have saved_params, store them in a temporary variable to make access cleaner
+		if(currentSite in params){
+			var saved_params = params[currentSite];
+			saved_params["init"] = {};
+		}
+		// otherwise, we must be creating a new config
+		else{
+			var saved_params = {};
+			saved_params["init"] = {};
+		}
+		
+		//cycle through the init param inputs and set the values 
+		$(".init-param").each(function(){
 
+			var fieldID = $(this).attr('data-fieldID');
+			var fieldValue = $(this).val();
+			saved_params["init"][fieldID] = fieldValue;
+		});
 
-   chrome.storage.sync.set(json_obj, function() {
-       console.log('Saved website scrape parameters.');
+		// store the current sites initialization parameters
+	   chrome.storage.local.set({[currentSite]: saved_params}, function() {
+	       console.log('Saved website initialization parameters.');
+	   });
+
    });
+
+	
 }
 
 
-function loadParameters(){
+// loads the initialization modal with saved website configuration
+function loadInitParams(){
 	var currentSite = select_siteToConfigure.val();
 	
-	chrome.storage.sync.get(currentSite, function (obj) {
-	   input_siteParameters.val(obj[currentSite]);
+	//get configuration for the current site
+	chrome.storage.local.get(currentSite, function (params) {
+
+		// check if this site has saved parameters
+	   if(currentSite in params){
+	   	var saved_params = params[currentSite];
+
+	   }
+	   //if it doesn't set that to null so the loop below will replace the contents of the modal with blanks
+	   else{
+	   	var saved_params = null;
+	   }
+
+	   //cycle through each init param input 
+	   $(".init-param").each(function(){
+
+	   	var fieldID = $(this).attr('data-fieldID');
+
+	   	//check if saved_params exists
+	   	if(saved_params){
+	   	   	if("init" in saved_params){
+	   	   		//if the current field is saved, get the saved value and populate the input with it
+		   		if(fieldID in saved_params["init"]){
+			   		var fieldValue = saved_params["init"][fieldID];
+			   		$(this).val(fieldValue);
+		   		}
+	   		}	
+	   	}
+
+	   	// if there are no saved params, default to empty string
+	   	else{
+	   		$(this).val("");
+	   	}
+	
+
+
+	   });
+
 	});
 }
 
 
 
-function getSavedSites(){
-	chrome.storage.sync.get("stored_websites", function (obj) {
-	    console.log(obj);
-	});	
-}
-
-
-/*
- store json data for scrape
- how does output work/csv?
- send final results to csv
-
-*/
