@@ -102,26 +102,68 @@ function populateSiteSteps(){
 
 			  
 
-			   var currentHTML = "<div class=\"input-group\" data-stepID=\"" + stepID + "\">";
+			   var currentHTML = "<div class=\"input-group site-step\" data-stepID=\"" + stepID + "\">";
 			   currentHTML += "<span class=\"input-group-addon\">Step</span>";
 			   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepID + "\" readonly>";
 			   currentHTML += "<span class=\"input-group-addon\">Type</span>";
 			   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepType + "\" readonly>";
 			   currentHTML += "<span class=\"input-group-btn\">";
-			   currentHTML += "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Edit </button>";
+  			   currentHTML += "<button type=\"button\" class=\"btn btn-primary edit-site-step\" data-toggle=\"modal\" data-target=\"#modal_edit_" + stepType + "\" data-stepID=\"" + stepID + "\"> Edit </button>";
 			   currentHTML += "</span>";
 			   currentHTML += "<span class=\"input-group-btn\">";
-			   currentHTML += "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Delete </button>";
+		   	   currentHTML += "<button type=\"button\" class=\"btn btn-danger delete-site-step\" data-stepID=\"" + stepID + "\"> Delete </button>";
 			   currentHTML += "</span>";
-			   currentHTML += "</div><br>";
+			   currentHTML += "</div>";
 
 		       $("#scrape_steps_cont").append(currentHTML);
 			}
 		}
+
+
+		$(".delete-site-step").each(function(){
+			var stepID = $(this).attr('data-stepID');
+
+			$(this).unbind();
+			$(this).click({stepID: stepID}, deleteSiteStep);
+		});
 	});
 
 
 }
+
+
+
+function deleteSiteStep(event){
+	var stepID = event.data.stepID;
+	var currentSite = select_siteToConfigure.val();
+	
+	chrome.storage.local.get(currentSite, function(params) {
+
+		if(currentSite in params){
+			var saved_params = params[currentSite];
+		}
+		// otherwise, we must be creating a new config
+		else{
+			var saved_params = {};
+		}
+
+		if(stepID in saved_params){
+			delete saved_params[stepID];
+		}
+		
+
+ 		chrome.storage.local.set({[currentSite]: saved_params}, function() {
+ 			var selectorString = '[data-stepID="' + stepID + '"]';
+ 			var stepContainer = $(".site-step" + selectorString);
+ 			stepContainer.remove();
+ 		});
+
+	});
+
+}
+
+
+
 function addSiteStep(){
 	var currentSite = select_siteToConfigure.val();
 	// get the saved parameters, so overwriting the values won't erase other steps in the parse list
@@ -148,20 +190,28 @@ function addSiteStep(){
  		chrome.storage.local.set({[currentSite]: saved_params}, function() {
 	       console.log('Saved new step.');
 	      
-	       var currentHTML = "<div class=\"input-group\" data-stepID=\"" + stepID + "\">";
+	       var currentHTML = "<div class=\"input-group site-step\" data-stepID=\"" + stepID + "\">";
 		   currentHTML += "<span class=\"input-group-addon\">Step</span>";
 		   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepID + "\" readonly>";
 		   currentHTML += "<span class=\"input-group-addon\">Type</span>";
 		   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepType + "\" readonly>";
 		   currentHTML += "<span class=\"input-group-btn\">";
-		   currentHTML += "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Edit </button>";
+		   currentHTML += "<button type=\"button\" class=\"btn btn-primary edit-site-step\" data-toggle=\"modal\" data-target=\"#modal_edit_" + stepType + "\" data-stepID=\"" + stepID + "\"> Edit </button>";
 		   currentHTML += "</span>";
 		   currentHTML += "<span class=\"input-group-btn\">";
-		   currentHTML += "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Delete </button>";
+		   currentHTML += "<button type=\"button\" class=\"btn btn-danger delete-site-step\" data-stepID=\"" + stepID + "\"> Delete </button>";
 		   currentHTML += "</span>";
-		   currentHTML += "</div><br>";
+		   currentHTML += "</div>";
 
 	       $("#scrape_steps_cont").append(currentHTML);
+
+	       $(".delete-site-step").each(function(){
+			var stepID = $(this).attr('data-stepID');
+
+			$(this).unbind();
+			$(this).click({stepID: stepID}, deleteSiteStep);
+		});
+	       
 	   });
 
 	});
