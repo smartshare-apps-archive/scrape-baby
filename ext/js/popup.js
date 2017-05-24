@@ -5,6 +5,7 @@ var btn_startScrape;
 var btn_gatherFields;
 var btn_saveInitParams;
 var btn_editInitParams;
+var btn_addSiteStep;
 
 var input_siteToScrape;
 var input_siteToTest;
@@ -30,6 +31,8 @@ $(document).ready(function(){
         currentURL = tab.url;
 
         populateTargetFields();
+        populateSiteSteps();
+
     });
 
 	/*
@@ -40,6 +43,7 @@ $(document).ready(function(){
 	    }
 	});
 	*/
+
 });
 
 
@@ -48,6 +52,7 @@ function bindElements(){
 	btn_gatherFields = $("#btn_gatherFields");
 	btn_saveInitParams = $("#btn_saveInitParams");
 	btn_editInitParams = $("#btn_editInitParams");
+	btn_addSiteStep = $("#btn_addSiteStep");
 
 	select_siteToConfigure = $("#select_siteToConfigure");
 
@@ -64,7 +69,8 @@ function bindEvents(){
 	btn_saveInitParams.click(saveInitParams);
 	btn_editInitParams.click(loadInitParams);
 
-	//select_siteToConfigure.change(loadParameters);
+	btn_addSiteStep.click(addSiteStep);
+	select_siteToConfigure.change(populateSiteSteps);
 }
 
 
@@ -72,6 +78,94 @@ function bindEvents(){
 function initScrape(){
 	var currentParams = null;
 	//chrome.runtime.sendMessage({params: test_params_b});
+
+}
+
+function populateSiteSteps(){
+	var currentSite = select_siteToConfigure.val();
+	// get the saved parameters, so overwriting the values won't erase other steps in the parse list
+	chrome.storage.local.get(currentSite, function(params) {
+		
+		if(currentSite in params){
+			var saved_params = params[currentSite];
+		}
+		// otherwise, we must be creating a new config
+		else{
+			var saved_params = {};
+		}
+
+		$("#scrape_steps_cont").html("");
+
+		for(stepID in saved_params){
+			if (stepID != "init"){
+			   var stepType = saved_params[stepID]["type"];
+
+			  
+
+			   var currentHTML = "<div class=\"input-group\" data-stepID=\"" + stepID + "\">";
+			   currentHTML += "<span class=\"input-group-addon\">Step</span>";
+			   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepID + "\" readonly>";
+			   currentHTML += "<span class=\"input-group-addon\">Type</span>";
+			   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepType + "\" readonly>";
+			   currentHTML += "<span class=\"input-group-btn\">";
+			   currentHTML += "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Edit </button>";
+			   currentHTML += "</span>";
+			   currentHTML += "<span class=\"input-group-btn\">";
+			   currentHTML += "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Delete </button>";
+			   currentHTML += "</span>";
+			   currentHTML += "</div><br>";
+
+		       $("#scrape_steps_cont").append(currentHTML);
+			}
+		}
+	});
+
+
+}
+function addSiteStep(){
+	var currentSite = select_siteToConfigure.val();
+	// get the saved parameters, so overwriting the values won't erase other steps in the parse list
+	chrome.storage.local.get(currentSite, function(params) {
+		
+		if(currentSite in params){
+			var saved_params = params[currentSite];
+		}
+		// otherwise, we must be creating a new config
+		else{
+			var saved_params = {};
+		}
+
+		console.log(saved_params);
+		
+		var stepID = $("#input_newStepName").val();
+		var stepType = $("#select_newStepType").val();
+
+		if(stepID != "" && (!(stepID in saved_params))){
+			saved_params[stepID] = {};
+			saved_params[stepID]["type"] = stepType;
+		}
+
+ 		chrome.storage.local.set({[currentSite]: saved_params}, function() {
+	       console.log('Saved new step.');
+	      
+	       var currentHTML = "<div class=\"input-group\" data-stepID=\"" + stepID + "\">";
+		   currentHTML += "<span class=\"input-group-addon\">Step</span>";
+		   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepID + "\" readonly>";
+		   currentHTML += "<span class=\"input-group-addon\">Type</span>";
+		   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepType + "\" readonly>";
+		   currentHTML += "<span class=\"input-group-btn\">";
+		   currentHTML += "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Edit </button>";
+		   currentHTML += "</span>";
+		   currentHTML += "<span class=\"input-group-btn\">";
+		   currentHTML += "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#modal_initParams\"> Delete </button>";
+		   currentHTML += "</span>";
+		   currentHTML += "</div><br>";
+
+	       $("#scrape_steps_cont").append(currentHTML);
+	   });
+
+	});
+
 
 }
 

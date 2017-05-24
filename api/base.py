@@ -101,19 +101,19 @@ def parse_action(parse_params, s=None, result_data = None):
 	if type(result_data) == type({}):
 		results = {}
 		for key, raw_data in result_data.iteritems():
-			for re_params in search_re_list:
+			re_params = 
 
-				associate_with_key = re_params.get("associate_with_key", None)
+			associate_with_key = re_params.get("associate_with_key", None)
 
-				operation = re_params["operation"]
-				current_results = {}
+			operation = re_params["operation"]
+			current_results = {}
 
-				if operation == "iterate":
-					for m in re.finditer(re_params["exp"], result_data[key]):
-						match_groups = m.groups()
+			if operation == "iterate":
+				for m in re.finditer(re_params["exp"], result_data[key]):
+					match_groups = m.groups()
 
-						for match_key, match_value in pairwise(match_groups):
-			 				current_results[match_key] = match_value
+					for match_key, match_value in pairwise(match_groups):
+		 				current_results[match_key] = match_value
 
 			if associate_with_key:
 				results[key] = current_results

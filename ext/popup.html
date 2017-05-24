@@ -135,6 +135,8 @@
 			  	</div>
 			  	<hr>
 			  	<div id="scrape_params_cont">
+
+			  		<!-- begin init params input container -->
 			  		<div class="input-group">
 			  			<span class="input-group-addon">
 			  				Step
@@ -150,7 +152,27 @@
 			  				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_initParams" id="btn_editInitParams"> Edit </button>
 			  			</span>
 			  		</div>
+			  		<!-- end init params input container -->
+			  		<br>
+			  		<div id="scrape_steps_cont">
+			  		</div>
 			  	</div>
+			  	<hr>
+
+				  	<div class="input-group">
+				  		<input type="text" class="form-control" id="input_newStepName">
+				  		
+				  		<select class="form-control" id="select_newStepType">
+					  		<option value="parse"> Parse data</option>
+					  		<option value="get"> Get data</option>
+
+				  		</select>
+				  		<span class="input-group-btn">
+				  			<button type="button" class="btn btn-primary" id="btn_addSiteStep">Add step</button>
+				  		</span>
+				  	</div>
+
+			  	
 			  	<hr>
 
 			  	<button type="button" class="btn btn-primary btn-lg" id="btn_setParameters"> Save parameters </button>

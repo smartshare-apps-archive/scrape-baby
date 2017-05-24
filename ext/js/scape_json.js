@@ -21,17 +21,10 @@ var test_params_a = {
    		
    		"get_product_links":{
 			type: "parse",
-			search_re_list: 
-				[	
-					{
-					id: "product_links",
-					exp: String.raw`\"boldLink\sproductLink\"\shref=\"([^\"]+)\"\>([^\<]+)\</a\>`,
-					operation: "iterate",
-					}
-				],
+			id: "product_links",
+			exp: String.raw`\"boldLink\sproductLink\"\shref=\"([^\"]+)\"\>([^\<]+)\</a\>`,
+			operation: "iterate",
 			next_action:"get_product_specs"
-			
-				
 	   	},
 
 	   	"get_product_specs": {
@@ -47,16 +40,10 @@ var test_params_a = {
 
    		"parse_product_specs":{
 			type: "parse",
-			search_re_list: 
-				[	
-					{
-					id: "product_specs",
-					associate_with_key: "true",
-					exp: String.raw`\<div\sclass=\"specRow\"\>[^\<]+\<span\sclass=\"alignLeft\"\>[^A-Za-z0-9\$\.\-]+([A-Za-z0-9\$\s\.\-]+)[^\<]+\</span\>[^\<]+\<span\sclass=\"alignRight\"\>[^A-Za-z0-9\$\-\.]+([A-Za-z0-9\$\s\.\-]+)\</span\>`,
-					operation: "iterate",
-					}
-
-				],
+			id: "product_specs",
+			associate_with_key: "true",
+			exp: String.raw`\<div\sclass=\"specRow\"\>[^\<]+\<span\sclass=\"alignLeft\"\>[^A-Za-z0-9\$\.\-]+([A-Za-z0-9\$\s\.\-]+)[^\<]+\</span\>[^\<]+\<span\sclass=\"alignRight\"\>[^A-Za-z0-9\$\-\.]+([A-Za-z0-9\$\s\.\-]+)\</span\>`,
+			operation: "iterate",
 			next_action:null
 	   	},
 
