@@ -1,6 +1,5 @@
 var select_siteToConfigure;
 
-var btn_setParameters;
 var btn_startScrape;
 var btn_gatherFields;
 var btn_saveInitParams;
@@ -50,8 +49,10 @@ $(document).ready(function(){
 function bindElements(){
 	btn_startScrape = $("#btn_startScrape");
 	btn_gatherFields = $("#btn_gatherFields");
+
 	btn_saveInitParams = $("#btn_saveInitParams");
 	btn_editInitParams = $("#btn_editInitParams");
+	
 	btn_addSiteStep = $("#btn_addSiteStep");
 
 	select_siteToConfigure = $("#select_siteToConfigure");
@@ -103,7 +104,6 @@ function populateSiteSteps(){
 			  
 
 			   var currentHTML = "<div class=\"input-group site-step\" data-stepID=\"" + stepID + "\">";
-			   currentHTML += "<span class=\"input-group-addon\">Step</span>";
 			   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepID + "\" readonly>";
 			   currentHTML += "<span class=\"input-group-addon\">Type</span>";
 			   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepType + "\" readonly>";
@@ -191,7 +191,6 @@ function addSiteStep(){
 	       console.log('Saved new step.');
 	      
 	       var currentHTML = "<div class=\"input-group site-step\" data-stepID=\"" + stepID + "\">";
-		   currentHTML += "<span class=\"input-group-addon\">Step</span>";
 		   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepID + "\" readonly>";
 		   currentHTML += "<span class=\"input-group-addon\">Type</span>";
 		   currentHTML += "<input type=\"text\" class=\"form-control\" value=\"" + stepType + "\" readonly>";
@@ -211,7 +210,7 @@ function addSiteStep(){
 			$(this).unbind();
 			$(this).click({stepID: stepID}, deleteSiteStep);
 		});
-	       
+
 	   });
 
 	});

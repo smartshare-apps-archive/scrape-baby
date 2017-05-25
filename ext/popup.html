@@ -172,10 +172,7 @@
 				  		</span>
 				  	</div>
 
-			  	
-			  	<hr>
-
-			  	<button type="button" class="btn btn-primary btn-lg" id="btn_setParameters"> Save parameters </button>
+		
 
 			  </div>
 			</div>
@@ -224,7 +221,7 @@
         	<span class="input-group-addon"> Login URL </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-url" placeholder="Enter URL">
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Method </span>
         	
@@ -233,17 +230,17 @@
         		<option value="POST"> POST </option>
         	</select>
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Username </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-username">
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Password </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-password">
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Requires Token </span>
         	<select class="form-control init-param" data-fieldID="session-login-requires-token" >
@@ -251,17 +248,17 @@
         		<option value="false"> No </option>
         	</select>
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Token url </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-token-url" >
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Token regex </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-token-regex" >
         </div>
-        <br>
+
         <div class="input-group">
         	<span class="input-group-addon"> Token name </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-token-name">
@@ -291,13 +288,25 @@
       </div>
       <div class="modal-body">
         
+
+		<div class="input-group">
+        	<span class="input-group-addon"> Result key </span>
+        	<input type="text" class="form-control parse-param" data-fieldID="result-key">
+        </div>
+
         <div class="input-group">
-        	<span class="input-group-addon"> Method </span>
-        	<select class="form-control">
-        		<option value="GET"> GET </option>
-        		<option value="POST"> POST </option>
+        	<span class="input-group-addon"> Regex </span>
+        	<input type="text" class="form-control parse-param" data-fieldID="regex">
+        </div>
+
+        <div class="input-group">
+        	<span class="input-group-addon"> Regex Operation </span>
+        	<select class="form-control parse-param" data-fieldID="regex-operation" >
+        		<option value="iterate"> Iterate </option>
+        		<option value="search"> Search </option>
         	</select>
         </div>
+
 
         
 

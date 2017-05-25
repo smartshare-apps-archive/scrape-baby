@@ -52,7 +52,7 @@ def init_scrape(scrape_params):
 		s = None
 
 		#if these scrapes require authentication, set up an authenticated session object 
-		if(init_params["requires_session"]):
+		if(init_params["requires_session"] == "yes"):
 			s = create_session(init_params["session_params"])
 		else:
 			s = requests.Session()

@@ -1,6 +1,6 @@
 html{
 	width:600px;
-	height:500px;
+	height:800px;
 
 
 }
@@ -8,7 +8,7 @@ html{
 body{
 	margin-top:10px;
 	width:600px;
-	height:500px;
+	height:800px;
 }
 
 h3{
@@ -32,4 +32,16 @@ h4{
 
 .site-step{
 	margin-bottom:10px;
+}
+
+.site-step button{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	-o-border-radius: 0px;
+	border-radius: 0px;
+	border-left:0px;
+}
+
+.input-group{
+	margin-bottom:5px;
 }

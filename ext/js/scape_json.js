@@ -21,7 +21,7 @@ var test_params_a = {
    		
    		"get_product_links":{
 			type: "parse",
-			id: "product_links",
+			id: "result_id",
 			exp: String.raw`\"boldLink\sproductLink\"\shref=\"([^\"]+)\"\>([^\<]+)\</a\>`,
 			operation: "iterate",
 			next_action:"get_product_specs"
