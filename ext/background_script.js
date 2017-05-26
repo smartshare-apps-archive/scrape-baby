@@ -4,7 +4,7 @@ console.log("run");
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 
 	if("params" in message){
-		console.log(message);
+		console.log("Heres a message");
 		send_request(message);
 	}
 
@@ -14,6 +14,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 
 function send_request(params){
 	var params = JSON.stringify(params)
+	console.log("Sending");
+	console.log(params);
 
 	$.ajax({
 	  method: "POST",

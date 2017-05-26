@@ -135,7 +135,6 @@
 			  	</div>
 			  	<hr>
 			  	<div id="scrape_params_cont">
-
 			  		<!-- begin init params input container -->
 			  		<div class="input-group">
 			  			<span class="input-group-addon">
@@ -171,9 +170,6 @@
 				  			<button type="button" class="btn btn-primary" id="btn_addSiteStep">Add step</button>
 				  		</span>
 				  	</div>
-
-		
-
 			  </div>
 			</div>
 		<!-- end tab content section -->
@@ -208,6 +204,11 @@
         </div>
         <br>
         <div class="input-group">
+        	<span class="input-group-addon"> Next action </span>
+        	<input type="text" class="form-control init-param" data-fieldID="next-action" placeholder="Enter action">
+        </div>
+        <br>
+        <div class="input-group">
         	<span class="input-group-addon"> Requires session? </span>
         	<select class="form-control init-param" data-fieldID="requires-session">
         		<option value="true"> Yes </option>
@@ -232,10 +233,18 @@
         </div>
 
         <div class="input-group">
+        	<span class="input-group-addon"> Username ID</span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-username-id">
+        </div>
+                <div class="input-group">
         	<span class="input-group-addon"> Username </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-username">
         </div>
 
+       <div class="input-group">
+        	<span class="input-group-addon"> Password ID</span>
+        	<input type="text" class="form-control init-param" data-fieldID="session-login-password-id">
+        </div>
         <div class="input-group">
         	<span class="input-group-addon"> Password </span>
         	<input type="text" class="form-control init-param" data-fieldID="session-login-password">
@@ -307,6 +316,10 @@
         	</select>
         </div>
 
+        <div class="input-group">
+        	<span class="input-group-addon"> Next action </span>
+        	<input type="text" class="form-control parse-param" data-fieldID="next-action" placeholder="Enter action">
+        </div>
 
         
 
@@ -343,6 +356,11 @@
         </div>
 
         <div class="input-group">
+        	<span class="input-group-addon"> Base URL </span>
+        	<input type="text" class="form-control get-param" data-fieldID="base-url" placeholder="Enter URL">
+        </div>
+
+        <div class="input-group">
         	<span class="input-group-addon"> URLs in result </span>
         	
         	<select class="form-control get-param" data-fieldID="urls-in-result" >
@@ -354,6 +372,11 @@
 		<div class="input-group">
         	<span class="input-group-addon"> URL Key </span>
         	<input type="text" class="form-control get-param" data-fieldID="url-key">
+        </div>
+
+        <div class="input-group">
+        	<span class="input-group-addon"> Next action </span>
+        	<input type="text" class="form-control get-param" data-fieldID="next-action" placeholder="Enter action">
         </div>
 
       </div>

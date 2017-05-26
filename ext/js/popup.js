@@ -158,6 +158,11 @@ function populateSiteSteps(){
 }
 
 
+function getStepParams(){
+	console.log("Hey getting step parameters");
+
+}
+
 
 function deleteSiteStep(event){
 	var stepID = event.data.stepID;
@@ -266,7 +271,9 @@ function gatherFields(){
 	var currentParams = input_siteToTest.val();
 	
 	chrome.storage.local.get(currentParams, function (obj) {
-		var paramString = obj[currentParams];
+		var params = obj[currentParams];
+		params["init"]["url"] = testURL;
+		chrome.runtime.sendMessage({params: params});
 
 	});
 }
